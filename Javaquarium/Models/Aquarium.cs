@@ -1,4 +1,5 @@
 ﻿using Javaquarium.Models.LivingBeings.Fishes;
+using Javaquarium.Models.LivingBeings.Fishes.Enums;
 using Javaquarium.Models.LivingBeings.Seaweeds;
 using System;
 using System.Collections.Generic;

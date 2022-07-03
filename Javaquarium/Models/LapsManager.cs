@@ -46,8 +46,9 @@ namespace Javaquarium.Models
             // certain poissons meurent de vieillesse, on actualise
             fishes = new(Aquarium.Fishes);
 
-            // les poissons mangent
-            foreach (var fish in fishes) fish.Eat();
+            // les algues et les poissons font leur action
+            foreach (var seaweed in seaweeds) seaweed.Acts();
+            foreach (var fish in fishes) if (fish.IsAlive) fish.Acts();
 
             ++ViewModel.Lap;
         }

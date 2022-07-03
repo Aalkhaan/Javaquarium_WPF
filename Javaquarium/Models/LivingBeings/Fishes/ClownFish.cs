@@ -1,4 +1,4 @@
-﻿using Javaquarium.Models.LivingBeings.Fishes.Behaviours;
+﻿using Javaquarium.Models.LivingBeings.Fishes.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,13 @@ namespace Javaquarium.Models.LivingBeings.Fishes
     {
         public ClownFish(Aquarium aquarium, Sex sex, string name = "") : base(aquarium, sex, name)
         {
-            EatBehaviour = new CarnivorousBehaviour(this);
+            EatDelegateProperty = new EatDelegate(CarnivorousEat);
+        }
+
+        protected override void GiveBirth()
+        {
+            ClownFish newBorn = new(Aquarium, RandomManager.GetRandomSex());
+            Aquarium.Fishes.Add(newBorn);
         }
     }
 }

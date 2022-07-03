@@ -41,10 +41,14 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
+            <!--  Nombre de tours  -->
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="Lap: " />
                 <TextBlock Text="{Binding Lap}" />
             </StackPanel>
+
+            <!--  Nombre d'algues  -->
             <StackPanel
                 Grid.Row="1"
                 VerticalAlignment="Center"
@@ -52,6 +56,8 @@
                 <TextBlock Text="Seaweeds: " />
                 <TextBlock Text="{Binding NbSeaweeds}" />
             </StackPanel>
+
+            <!--  Liste des poissons  -->
             <StackPanel
                 Grid.Row="2"
                 VerticalAlignment="Center"

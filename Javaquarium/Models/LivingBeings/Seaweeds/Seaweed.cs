@@ -22,5 +22,23 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
             ++LifePoints;
             base.GrowOld();
         }
+
+        protected override void Reproduce()
+        {
+            // l'algue se sépare en deux pour donner naissance à une nouvelle algue
+            int newSeaweedLifePoints = LifePoints >> 1;
+            LifePoints -= newSeaweedLifePoints;
+
+            Seaweed newSeaweed = new(Aquarium)
+            {
+                LifePoints = newSeaweedLifePoints
+            };
+            Aquarium.Seaweeds.Add(newSeaweed);
+        }
+
+        public override void Acts()
+        {
+            if (LifePoints >= 10) Reproduce();
+        }
     }
 }

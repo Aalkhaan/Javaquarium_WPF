@@ -9,7 +9,7 @@ namespace Javaquarium.Models.LivingBeings
     public abstract class AbstractLivingBeing
     {
         public Aquarium Aquarium { get; init; }
-        public int LifePoints
+        protected int LifePoints
         {
             get => _lifePoints;
             set
@@ -19,7 +19,7 @@ namespace Javaquarium.Models.LivingBeings
             }
         }
         private int _lifePoints = 10;
-        public int Age
+        public virtual int Age
         {
             get => _age;
             set
@@ -47,6 +47,10 @@ namespace Javaquarium.Models.LivingBeings
         /// Incrémente l'âge.
         /// </summary>
         public virtual void GrowOld() => ++Age;
+
+        protected abstract void Reproduce();
+
+        public abstract void Acts();
 
         public override string? ToString() => "Age: " + Age + ", LP: " + LifePoints;
     }
