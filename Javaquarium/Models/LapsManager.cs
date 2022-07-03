@@ -1,5 +1,6 @@
 ﻿using Javaquarium.Models.LivingBeings.Fishes;
 using Javaquarium.Models.LivingBeings.Seaweeds;
+using Javaquarium.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,31 +9,47 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models
 {
-    internal class LapsManager
+    public class LapsManager
     {
+        private ViewModel ViewModel { get; init; }
         private Aquarium Aquarium { get; set; }
 
-        public LapsManager(Aquarium aquarium)
+        public LapsManager(Aquarium aquarium, ViewModel viewModel)
         {
             Aquarium = aquarium;
+            ViewModel = viewModel;
+            ViewModel.Lap = 0;
         }
 
-        public void Reset() => Aquarium = new Aquarium();
+        /// <summary>
+        /// Réinitialise l'état de l'aquarium.
+        /// </summary>
+        public void Reset()
+        {
+            Aquarium = new Aquarium();
+            ViewModel.Aquarium = Aquarium;
+            ViewModel.Lap = 0;
+        }
 
+        /// <summary>
+        /// Passe un tour.
+        /// </summary>
         public void NextLap()
         {
             List<Seaweed> seaweeds = new(Aquarium.Seaweeds);
-            List<AbstractFish> fishes = new(Aquarium.Fishes);
+            FishList fishes = new(Aquarium.Fishes);
 
             // les êtres vivants vieillissent
-            foreach (Seaweed seaweed in seaweeds) seaweed.GrowOld();
-            foreach (AbstractFish fish in fishes) fish.GrowOld();
+            foreach (var seaweed in seaweeds) seaweed.GrowOld();
+            foreach (var fish in fishes) fish.GrowOld();
 
-            // certains meurent de vieillesse, on actualise
-            seaweeds = new(Aquarium.Seaweeds);
+            // certain poissons meurent de vieillesse, on actualise
             fishes = new(Aquarium.Fishes);
 
-            foreach (AbstractFish fish in fishes) fish.Eat();
+            // les poissons mangent
+            foreach (var fish in fishes) fish.Eat();
+
+            ++ViewModel.Lap;
         }
     }
 }

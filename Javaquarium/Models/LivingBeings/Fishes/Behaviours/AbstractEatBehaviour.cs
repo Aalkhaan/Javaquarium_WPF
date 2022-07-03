@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes.Behaviours
 {
-    internal abstract class AbstractEatBehaviour
+    public abstract class AbstractEatBehaviour
     {
         protected AbstractFish Fish { get; init; }
 

@@ -21,10 +21,13 @@ namespace Javaquarium
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ViewModel ViewModel { get; init; }
+        public string Test { get => "test fonctionne"; }
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            ViewModel = new ViewModel();
+            DataContext = ViewModel;
         }
     }
 }

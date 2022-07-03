@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes
 {
-    internal class SeaBass : AbstractFish
+    public class SeaBass : AbstractFish
     {
         public SeaBass(Aquarium aquarium, Sex sex, string name = "") : base(aquarium, sex, name)
         {

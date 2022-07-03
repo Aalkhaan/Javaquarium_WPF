@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models
 {
-    internal class Aquarium
+    public class Aquarium
     {
         public List<Seaweed> Seaweeds { get; init; }
-        public List<AbstractFish> Fishes { get; init; }
+        public FishList Fishes { get; private set; }
 
         public Aquarium()
         {
             Seaweeds = new(20);
-            for (int i = 0; i < 20; ++i)
-                Seaweeds[i] = new(this);
+            for (int i = 0; i < 20; ++i) Seaweeds.Add(new(this));
 
             Fishes = new()
             {

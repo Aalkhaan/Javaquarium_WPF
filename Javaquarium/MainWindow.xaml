@@ -5,9 +5,60 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Javaquarium"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:Javaquarium.ViewModels"
     Title="MainWindow"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel}"
     mc:Ignorable="d">
-    <Grid />
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  Menu  -->
+        <Grid Margin="0,0,15,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Button
+                Margin="0,0,0,15"
+                Command="{Binding NextLapCommand}"
+                Content="Next lap" />
+            <Button
+                Grid.Row="1"
+                Command="{Binding ResetCommand}"
+                Content="Reset aquarium" />
+        </Grid>
+
+        <!--  Affichage de l'état de l'aquarium  -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Lap: " />
+                <TextBlock Text="{Binding Lap}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Seaweeds: " />
+                <TextBlock Text="{Binding NbSeaweeds}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Fishes: " />
+                <TextBlock Text="{Binding FishesDisplay}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Window>

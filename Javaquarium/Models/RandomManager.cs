@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models
 {
-    internal class RandomManager
+    public class RandomManager
     {
         public static Random Random { get; } = new Random();
     }

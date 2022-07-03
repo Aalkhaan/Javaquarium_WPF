@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Javaquarium.Models.LivingBeings.Seaweeds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes.Behaviours
 {
-    internal class HerbivorousBehaviour : AbstractEatBehaviour
+    public class HerbivorousBehaviour : AbstractEatBehaviour
     {
         public HerbivorousBehaviour(AbstractFish fish) : base(fish)
         {
@@ -15,7 +16,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes.Behaviours
         public override void Eat()
         {
             int seaweedToEatIndex = RandomManager.Random.Next(Fish.Aquarium.Seaweeds.Count);
-            AbstractFish seaweedToEat = Fish.Aquarium.Fishes[seaweedToEatIndex];
+            Seaweed seaweedToEat = Fish.Aquarium.Seaweeds[seaweedToEatIndex];
 
             Fish.LifePoints += 3;
             seaweedToEat.GettingEaten();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes
 {
-    internal class Grouper : AbstractFish
+    public class Grouper : AbstractFish
     {
         public Grouper(Aquarium aquarium, Sex sex, string name = "") : base(aquarium, sex, name)
         {

@@ -5,10 +5,19 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Views\Images\Javaquarium.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Content Include="Views\Images\Javaquarium.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>

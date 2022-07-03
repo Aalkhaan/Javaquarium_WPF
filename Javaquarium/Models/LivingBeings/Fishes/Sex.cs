@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes
 {
-    internal enum Sex
+    public enum Sex
     {
         MALE,
         FEMALE,

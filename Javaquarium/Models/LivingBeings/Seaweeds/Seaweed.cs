@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Seaweeds
 {
-    internal class Seaweed : AbstractLivingBeing
+    public class Seaweed : AbstractLivingBeing
     {
         public Seaweed(Aquarium aquarium) : base(aquarium)
         {
@@ -14,12 +14,13 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
 
         public override void GettingEaten() => LifePoints -= 2;
 
-        protected override void Die()
-        {
-            IsAlive = false;
-            Aquarium.Seaweeds.Remove(this);
-        }
+        protected override void Die() => Aquarium.Seaweeds.Remove(this);
 
-        public void Grow() => ++LifePoints;
+        public override void GrowOld()
+        {
+            // l'algue grandit
+            ++LifePoints;
+            base.GrowOld();
+        }
     }
 }

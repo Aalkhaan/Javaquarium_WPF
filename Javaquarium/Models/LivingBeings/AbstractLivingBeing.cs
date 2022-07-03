@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings
 {
-    internal abstract class AbstractLivingBeing
+    public abstract class AbstractLivingBeing
     {
         public Aquarium Aquarium { get; init; }
-        public bool IsAlive { get; protected set; } = true;
         public int LifePoints
         {
             get => _lifePoints;
@@ -26,12 +25,13 @@ namespace Javaquarium.Models.LivingBeings
             set
             {
                 _age = value;
-                if (_age > 20) Die();
+                // les êtres vivants meurent de vieillesse au bout de 20 tours
+                if (_age >= 20) Die();
             }
         }
         private int _age = 0;
 
-        internal AbstractLivingBeing(Aquarium aquarium)
+        public AbstractLivingBeing(Aquarium aquarium)
         {
             Aquarium = aquarium;
         }
@@ -46,6 +46,8 @@ namespace Javaquarium.Models.LivingBeings
         /// <summary>
         /// Incrémente l'âge.
         /// </summary>
-        public void GrowOld() => ++Age;
+        public virtual void GrowOld() => ++Age;
+
+        public override string? ToString() => "Age: " + Age + ", LP: " + LifePoints;
     }
 }
