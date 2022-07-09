@@ -11,25 +11,27 @@
     Height="450"
     d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel}"
     mc:Ignorable="d">
-    <Grid Margin="15">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <!--  Menu  -->
-        <Grid Margin="0,0,15,0">
+        <Grid Margin="0,0,20,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Button
-                Margin="0,0,0,15"
+                Width="150"
+                Margin="0,0,0,10"
                 Command="{Binding NextLapCommand}"
                 Content="Next lap" />
             <Button
                 Grid.Row="1"
+                Width="150"
                 Command="{Binding ResetCommand}"
                 Content="Reset aquarium" />
         </Grid>
@@ -43,7 +45,10 @@
             </Grid.RowDefinitions>
 
             <!--  Nombre de tours  -->
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel
+                Margin="0,0,0,10"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
                 <TextBlock Text="Lap: " />
                 <TextBlock Text="{Binding Lap}" />
             </StackPanel>
@@ -51,6 +56,7 @@
             <!--  Nombre d'algues  -->
             <StackPanel
                 Grid.Row="1"
+                Margin="0,0,0,10"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock Text="Seaweeds: " />
@@ -60,10 +66,17 @@
             <!--  Liste des poissons  -->
             <StackPanel
                 Grid.Row="2"
+                Margin="0,0,0,10"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock Text="Fishes: " />
-                <TextBlock Text="{Binding FishesDisplay}" />
+
+                <ScrollViewer
+                    Height="300"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="auto">
+                    <TextBlock Margin="0,0,10,0" Text="{Binding FishesDisplay}" />
+                </ScrollViewer>
             </StackPanel>
         </Grid>
     </Grid>

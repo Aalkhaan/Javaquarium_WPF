@@ -43,9 +43,8 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
             int partnerIndex = RandomManager.Random.Next(Aquarium.Fishes.Count);
             AbstractFish partner = Aquarium.Fishes[partnerIndex];
-            Type type = GetType();
 
-            if (type != partner.GetType() || this == partner) return;
+            if (GetType() != partner.GetType() || this == partner) return;
 
             if (Sex == partner.Sex)
             {
