@@ -2,15 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Javaquarium.Models
 {
-    public class RandomManager
+    public static class RandomManager
     {
-        public static Random Random { get; } = new Random();
-
-        public static Sex GetRandomSex() => (Sex)Random.Next(2);
+        public static Sex GetRandomSex() => (Sex)RandomNumberGenerator.GetInt32(2);
     }
 }

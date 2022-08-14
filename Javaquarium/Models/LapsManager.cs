@@ -3,6 +3,7 @@ using Javaquarium.Models.LivingBeings.Seaweeds;
 using Javaquarium.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +12,14 @@ namespace Javaquarium.Models
 {
     public class LapsManager
     {
-        private ViewModel ViewModel { get; init; }
-        private Aquarium Aquarium { get; set; }
+        public LapsManagerVM LapsManagerVM { get; init; }
+        public Aquarium Aquarium { get; init; }
+        public int Lap { get; set; }
 
-        public LapsManager(Aquarium aquarium, ViewModel viewModel)
+        public LapsManager(LapsManagerVM lapsManagerVM, Aquarium aquarium)
         {
+            LapsManagerVM = lapsManagerVM;
             Aquarium = aquarium;
-            ViewModel = viewModel;
-            ViewModel.Lap = 0;
         }
 
         /// <summary>
@@ -26,9 +27,8 @@ namespace Javaquarium.Models
         /// </summary>
         public void Reset()
         {
-            Aquarium = new Aquarium();
-            ViewModel.Aquarium = Aquarium;
-            ViewModel.Lap = 0;
+            Aquarium.Clear();
+            LapsManagerVM.NotifyView();
         }
 
         /// <summary>
@@ -36,21 +36,26 @@ namespace Javaquarium.Models
         /// </summary>
         public void NextLap()
         {
-            List<Seaweed> seaweeds = new(Aquarium.Seaweeds);
-            FishList fishes = new(Aquarium.Fishes);
+            // on doit copier les listes car la méthode Acts supprime éventuellement des éléments de Seaweeds et Fishes
+            List<Seaweed> currentSeaweedList = new(Aquarium.Seaweeds);
+            List<AbstractFish> currentFishList = new(Aquarium.Fishes);
 
             // les êtres vivants vieillissent
-            foreach (var seaweed in seaweeds) seaweed.GrowOld();
-            foreach (var fish in fishes) fish.GrowOld();
+            currentSeaweedList.ForEach(seaweed => seaweed.GrowOld());
+            currentFishList.ForEach(fish => fish.GrowOld());
 
-            // certain poissons meurent de vieillesse, on actualise
-            fishes = new(Aquarium.Fishes);
+            // certain poissons meurent de vieillesse, on actualise donc la liste
+            currentFishList = new(Aquarium.Fishes);
 
             // les algues et les poissons font leur action
-            foreach (var seaweed in seaweeds) seaweed.Acts();
-            foreach (var fish in fishes) if (fish.IsAlive) fish.Acts();
+            currentSeaweedList.ForEach(seaweed => seaweed.Acts());
+            foreach (AbstractFish fish in currentFishList)
+            {
+                if (fish.IsAlive)
+                    fish.Acts();
+            }
 
-            ++ViewModel.Lap;
+            ++Lap;
         }
     }
 }

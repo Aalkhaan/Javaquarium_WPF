@@ -1,6 +1,4 @@
-﻿using Javaquarium.Models;
-using Javaquarium.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Javaquarium
+namespace Javaquarium.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LapsManagerUC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LapsManagerUC : UserControl
     {
-        public MainWindowVM MainWindowVM { get; init; }
-
-        public MainWindow()
+        public LapsManagerUC()
         {
             InitializeComponent();
-
-            Aquarium aquarium = new();
-            MainWindowVM = new MainWindowVM(aquarium);
-
-            DataContext = MainWindowVM;
         }
     }
 }

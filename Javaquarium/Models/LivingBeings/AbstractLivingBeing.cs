@@ -8,6 +8,7 @@ namespace Javaquarium.Models.LivingBeings
 {
     public abstract class AbstractLivingBeing
     {
+        private const int BaseLifePoints = 10;
         public Aquarium Aquarium { get; init; }
         protected int LifePoints
         {
@@ -15,10 +16,11 @@ namespace Javaquarium.Models.LivingBeings
             set
             {
                 _lifePoints = value;
-                if (_lifePoints <= 0) Die();
+                if (_lifePoints <= 0)
+                    Die();
             }
         }
-        private int _lifePoints = 10;
+        private int _lifePoints = BaseLifePoints;
         public virtual int Age
         {
             get => _age;
@@ -26,12 +28,14 @@ namespace Javaquarium.Models.LivingBeings
             {
                 _age = value;
                 // les êtres vivants meurent de vieillesse au bout de 20 tours
-                if (_age >= 20) Die();
+                if (_age >= 20)
+                    Die();
             }
         }
-        private int _age = 0;
+        private int _age;
+        public bool IsAlive => LifePoints > 0;
 
-        public AbstractLivingBeing(Aquarium aquarium)
+        protected AbstractLivingBeing(Aquarium aquarium)
         {
             Aquarium = aquarium;
         }
@@ -52,6 +56,6 @@ namespace Javaquarium.Models.LivingBeings
 
         public abstract void Acts();
 
-        public override string? ToString() => "Age: " + Age + ", LP: " + LifePoints;
+        public override string? ToString() => "Age: " + Age + ", Life Points: " + LifePoints;
     }
 }

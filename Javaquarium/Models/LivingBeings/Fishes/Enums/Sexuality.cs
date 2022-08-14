@@ -8,12 +8,12 @@ namespace Javaquarium.Models.LivingBeings.Fishes.Enums
 {
     public enum Sexuality
     {
-        MONO_SEXUAL,
+        MonoSexual,
 
         // change de sexe au bout de 10 ans
-        HERMAPHRODITE_WITH_AGE,
+        HermaphroditeWithAge,
 
-        // change de sexe dès qu'il en a besoin pour se reproduire
-        OPPORTUNISTIC_HERMAPHRODITE
+        // change de sexe si nécessaire à chaque accouplement
+        OpportunisticHermaphrodite
     }
 }

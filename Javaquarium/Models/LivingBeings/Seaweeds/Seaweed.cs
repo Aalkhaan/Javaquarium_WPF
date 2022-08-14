@@ -8,9 +8,7 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
 {
     public class Seaweed : AbstractLivingBeing
     {
-        public Seaweed(Aquarium aquarium) : base(aquarium)
-        {
-        }
+        public Seaweed(Aquarium aquarium) : base(aquarium) { }
 
         public override void GettingEaten() => LifePoints -= 2;
 
@@ -38,7 +36,8 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
 
         public override void Acts()
         {
-            if (LifePoints >= 10) Reproduce();
+            if (LifePoints >= 10)
+                Reproduce();
         }
     }
 }

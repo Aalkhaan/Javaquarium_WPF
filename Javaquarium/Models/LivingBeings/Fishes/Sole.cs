@@ -11,7 +11,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes
     {
         public Sole(Aquarium aquarium, Sex sex, string name = "") : base(aquarium, sex, name)
         {
-            EatDelegateProperty = new EatDelegate(HerbivorousEat);
+            EatDelegateProperty = new EatBehaviour(HerbivorousEat);
         }
 
         protected override void GiveBirth()

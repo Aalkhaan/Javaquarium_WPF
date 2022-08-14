@@ -11,7 +11,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes
     {
         public Grouper(Aquarium aquarium, Sex sex, string name = "") : base(aquarium, sex, name)
         {
-            EatDelegateProperty = new EatDelegate(CarnivorousEat);
+            EatDelegateProperty = new EatBehaviour(CarnivorousEat);
         }
 
         protected override void GiveBirth()

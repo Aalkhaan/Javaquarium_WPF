@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Javaquarium.Models.LivingBeings.Fishes.Enums
 {
-    public enum Sex
+    public enum Race
     {
-        Male,
-        Female
+        Carp,
+        ClownFish,
+        Grouper,
+        SeaBass,
+        Sole,
+        Tuna
     }
 }

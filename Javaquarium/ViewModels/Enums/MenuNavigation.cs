@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Javaquarium.Models.LivingBeings.Fishes.Enums
+namespace Javaquarium.ViewModels.Enums
 {
-    public enum Sex
+    public enum MenuNavigation
     {
-        Male,
-        Female
+        AquariumEdition,
+        LapsManagement
     }
 }

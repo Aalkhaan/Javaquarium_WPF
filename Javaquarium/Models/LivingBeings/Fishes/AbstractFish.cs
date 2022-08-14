@@ -3,6 +3,7 @@ using Javaquarium.Models.LivingBeings.Seaweeds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 {
     public abstract class AbstractFish : AbstractLivingBeing, IComparable<AbstractFish>
     {
+        private const int HungerThreshold = 5;
         public string Name { get; init; }
         public Sex Sex { get; private set; }
         protected Sexuality Sexuality { get; init; }
@@ -20,14 +22,13 @@ namespace Javaquarium.Models.LivingBeings.Fishes
             {
                 base.Age = value;
 
-                if (value == 10 && Sexuality == Sexuality.HERMAPHRODITE_WITH_AGE)
+                if (value == 10 && Sexuality == Sexuality.HermaphroditeWithAge)
                     SwitchSex();
             }
         }
-        public bool IsAlive { get => LifePoints > 0; }
-        private bool IsHungry { get => LifePoints <= 5; }
-        protected EatDelegate? EatDelegateProperty { get; set; }
-        protected delegate void EatDelegate();
+        private bool IsHungry => LifePoints <= HungerThreshold;
+        protected EatBehaviour? EatDelegateProperty { get; set; }
+        protected delegate void EatBehaviour();
 
         protected AbstractFish(Aquarium aquarium, Sex sex, string name = "") : base(aquarium)
         {
@@ -39,16 +40,20 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         protected override void Reproduce()
         {
-            if (Aquarium.Fishes.Count == 0) return;
+            if (Aquarium.Fishes.Count == 0)
+                return;
 
-            int partnerIndex = RandomManager.Random.Next(Aquarium.Fishes.Count);
+            int partnerIndex = RandomNumberGenerator.GetInt32(Aquarium.Fishes.Count);
             AbstractFish partner = Aquarium.Fishes[partnerIndex];
 
-            if (GetType() != partner.GetType() || this == partner) return;
+            if (GetType() != partner.GetType() || this == partner)
+                return;
 
             if (Sex == partner.Sex)
             {
-                if (Sexuality != Sexuality.OPPORTUNISTIC_HERMAPHRODITE) return;
+                if (Sexuality != Sexuality.OpportunisticHermaphrodite)
+                    return;
+
                 SwitchSex();
             }
 
@@ -59,8 +64,10 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         public override void Acts()
         {
-            if (IsHungry) Eat();
-            else Reproduce();
+            if (IsHungry)
+                Eat();
+            else
+                Reproduce();
         }
 
         public override void GettingEaten() => LifePoints -= 4;
@@ -83,31 +90,19 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
             string race = absoluteRace[(lastPointIndex + 1)..];
             return "Race: " + race + ", " + base.ToString();
-
-        }
-
-        public int CompareTo(AbstractFish? other)
-        {
-            if (other == null) return -1;
-
-            // compare par type
-            Type t = GetType();
-            Type otherT = other.GetType();
-            if (t != otherT) return otherT.ToString().CompareTo(t.ToString());
-
-            // puis par points de vie
-            return other.LifePoints.CompareTo(LifePoints);
         }
 
         protected void CarnivorousEat()
         {
-            if (Aquarium.Fishes.Count == 0) return;
+            if (Aquarium.Fishes.Count == 0)
+                return;
 
-            int fishToEatIndex = RandomManager.Random.Next(Aquarium.Fishes.Count);
+            int fishToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.Fishes.Count);
             AbstractFish fishToEat = Aquarium.Fishes[fishToEatIndex];
 
             // un poisson ne peut ni manger un autre poisson de la même race, ni lui même
-            if (GetType() == fishToEat.GetType()) return;
+            if (GetType() == fishToEat.GetType())
+                return;
 
             LifePoints += 5;
             fishToEat.GettingEaten();
@@ -115,9 +110,10 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         protected void HerbivorousEat()
         {
-            if (Aquarium.Seaweeds.Count == 0) return;
+            if (Aquarium.Seaweeds.Count == 0)
+                return;
 
-            int seaweedToEatIndex = RandomManager.Random.Next(Aquarium.Seaweeds.Count);
+            int seaweedToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.Seaweeds.Count);
             Seaweed seaweedToEat = Aquarium.Seaweeds[seaweedToEatIndex];
 
             LifePoints += 3;
@@ -126,8 +122,36 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         private void SwitchSex()
         {
-            if (Sex == Sex.MALE) Sex = Sex.FEMALE;
-            else Sex = Sex.MALE;
+            if (Sex == Sex.Male)
+                Sex = Sex.Female;
+            else
+                Sex = Sex.Male;
         }
+
+        public override bool Equals(object? obj) => ReferenceEquals(this, obj);
+
+        public int CompareTo(AbstractFish? other)
+        {
+            if (other is null)
+                return -1;
+
+            // on compare par nom du type de poisson
+            Type thisType = GetType();
+            Type otherType = other.GetType();
+            if (thisType != otherType)
+                return string.CompareOrdinal(thisType.ToString(), otherType.ToString());
+
+            // puis par points de vie
+            return LifePoints.CompareTo(other.LifePoints);
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        public static bool operator ==(AbstractFish left, AbstractFish right) => ReferenceEquals(left, right);
+        public static bool operator !=(AbstractFish left, AbstractFish right) => !(left == right);
+        public static bool operator <(AbstractFish left, AbstractFish right) => left is null ? right is not null : left.CompareTo(right) < 0;
+        public static bool operator <=(AbstractFish left, AbstractFish right) => left is null || left.CompareTo(right) <= 0;
+        public static bool operator >(AbstractFish left, AbstractFish right) => left is not null && left.CompareTo(right) > 0;
+        public static bool operator >=(AbstractFish left, AbstractFish right) => left is null ? right is null : left.CompareTo(right) >= 0;
     }
 }
