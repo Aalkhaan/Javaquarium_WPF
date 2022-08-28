@@ -28,8 +28,7 @@ namespace Javaquarium
         {
             InitializeComponent();
 
-            Aquarium aquarium = new();
-            MainWindowVM = new MainWindowVM(aquarium);
+            MainWindowVM = new();
 
             DataContext = MainWindowVM;
         }

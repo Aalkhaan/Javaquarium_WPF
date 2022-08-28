@@ -12,7 +12,7 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
 
         public override void GettingEaten() => LifePoints -= 2;
 
-        protected override void Die() => Aquarium.Seaweeds.Remove(this);
+        protected override void Die() => Aquarium.SeaweedList.Remove(this);
 
         public override void GrowOld()
         {
@@ -31,7 +31,7 @@ namespace Javaquarium.Models.LivingBeings.Seaweeds
             {
                 LifePoints = newSeaweedLifePoints
             };
-            Aquarium.Seaweeds.Add(newSeaweed);
+            Aquarium.SeaweedList.Add(newSeaweed);
         }
 
         public override void Acts()

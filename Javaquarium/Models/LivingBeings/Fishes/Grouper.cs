@@ -17,7 +17,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes
         protected override void GiveBirth()
         {
             Grouper newBorn = new(Aquarium, RandomManager.GetRandomSex());
-            Aquarium.Fishes.Add(newBorn);
+            Aquarium.FishList.Add(newBorn);
         }
     }
 }

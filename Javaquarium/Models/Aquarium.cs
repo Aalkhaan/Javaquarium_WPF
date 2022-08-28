@@ -12,8 +12,8 @@ namespace Javaquarium.Models
 {
     public class Aquarium
     {
-        public Collection<Seaweed> Seaweeds { get; init; } = new();
-        public ObservableCollection<AbstractFish> Fishes { get; init; } = new();
+        internal List<Seaweed> SeaweedList { get; } = new();
+        internal List<AbstractFish> FishList { get; private set; } = new();
 
         public Aquarium() { }
 
@@ -22,26 +22,29 @@ namespace Javaquarium.Models
             Clear();
 
             for (int i = 0; i < 20; ++i)
-                Seaweeds.Add(new(this));
+                SeaweedList.Add(new(this));
 
-            Fishes.Add(new Carp(this, Sex.Male));
-            Fishes.Add(new Carp(this, Sex.Female));
-            Fishes.Add(new ClownFish(this, Sex.Male));
-            Fishes.Add(new ClownFish(this, Sex.Female));
-            Fishes.Add(new Grouper(this, Sex.Male));
-            Fishes.Add(new Grouper(this, Sex.Female));
-            Fishes.Add(new SeaBass(this, Sex.Male));
-            Fishes.Add(new SeaBass(this, Sex.Female));
-            Fishes.Add(new Sole(this, Sex.Male));
-            Fishes.Add(new Sole(this, Sex.Female));
-            Fishes.Add(new Tuna(this, Sex.Male));
-            Fishes.Add(new Tuna(this, Sex.Female));
+            FishList = new()
+            {
+                new Carp(this, Sex.Male),
+                new Carp(this, Sex.Female),
+                new ClownFish(this, Sex.Male),
+                new ClownFish(this, Sex.Female),
+                new Grouper(this, Sex.Male),
+                new Grouper(this, Sex.Female),
+                new SeaBass(this, Sex.Male),
+                new SeaBass(this, Sex.Female),
+                new Sole(this, Sex.Male),
+                new Sole(this, Sex.Female),
+                new Tuna(this, Sex.Male),
+                new Tuna(this, Sex.Female)
+            };
         }
 
         public void Clear()
         {
-            Seaweeds.Clear();
-            Fishes.Clear();
+            SeaweedList.Clear();
+            FishList.Clear();
         }
     }
 }

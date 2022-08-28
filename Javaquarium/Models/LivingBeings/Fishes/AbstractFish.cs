@@ -40,11 +40,11 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         protected override void Reproduce()
         {
-            if (Aquarium.Fishes.Count == 0)
+            if (Aquarium.FishList.Count == 0)
                 return;
 
-            int partnerIndex = RandomNumberGenerator.GetInt32(Aquarium.Fishes.Count);
-            AbstractFish partner = Aquarium.Fishes[partnerIndex];
+            int partnerIndex = RandomNumberGenerator.GetInt32(Aquarium.FishList.Count);
+            AbstractFish partner = Aquarium.FishList[partnerIndex];
 
             if (GetType() != partner.GetType() || this == partner)
                 return;
@@ -72,7 +72,7 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         public override void GettingEaten() => LifePoints -= 4;
 
-        protected override void Die() => Aquarium.Fishes.Remove(this);
+        protected override void Die() => Aquarium.FishList.Remove(this);
 
         public override void GrowOld()
         {
@@ -94,11 +94,11 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         protected void CarnivorousEat()
         {
-            if (Aquarium.Fishes.Count == 0)
+            if (Aquarium.FishList.Count == 0)
                 return;
 
-            int fishToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.Fishes.Count);
-            AbstractFish fishToEat = Aquarium.Fishes[fishToEatIndex];
+            int fishToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.FishList.Count);
+            AbstractFish fishToEat = Aquarium.FishList[fishToEatIndex];
 
             // un poisson ne peut ni manger un autre poisson de la même race, ni lui même
             if (GetType() == fishToEat.GetType())
@@ -110,11 +110,11 @@ namespace Javaquarium.Models.LivingBeings.Fishes
 
         protected void HerbivorousEat()
         {
-            if (Aquarium.Seaweeds.Count == 0)
+            if (Aquarium.SeaweedList.Count == 0)
                 return;
 
-            int seaweedToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.Seaweeds.Count);
-            Seaweed seaweedToEat = Aquarium.Seaweeds[seaweedToEatIndex];
+            int seaweedToEatIndex = RandomNumberGenerator.GetInt32(Aquarium.SeaweedList.Count);
+            Seaweed seaweedToEat = Aquarium.SeaweedList[seaweedToEatIndex];
 
             LifePoints += 3;
             seaweedToEat.GettingEaten();

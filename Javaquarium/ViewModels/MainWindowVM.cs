@@ -23,8 +23,9 @@ namespace Javaquarium.ViewModels
         }
         private MenuNavigation _selectedNavigation = MenuNavigation.AquariumEdition;
 
-        public MainWindowVM(Aquarium aquarium)
+        public MainWindowVM()
         {
+            Aquarium aquarium = new();
             AquariumEditionVM = new(this, aquarium);
             LapsManagerVM = new(this, aquarium);
         }

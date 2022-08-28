@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:Javaquarium.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:utilities="clr-namespace:Javaquarium.Views.UserControls.Utilities"
     xmlns:viewmodels="clr-namespace:Javaquarium.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:AquariumEditionVM}"
     d:DesignHeight="450"
@@ -35,7 +36,7 @@
 
         <!--  List des poissons présents dans l'aquarium  -->
         <CollectionViewSource
-            x:Key="cvs"
+            x:Key="cvsFishes"
             Source="{Binding Fishes}">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Name" />
@@ -51,8 +52,12 @@
 
         <!--  Paramètres d'ajout d'un nouveau poisson  -->
         <StackPanel>
+            <TextBlock
+                FontWeight="Bold"
+                Text="Poissons" />
+
             <!--  Race  -->
-            <Grid>
+            <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="auto" />
@@ -127,6 +132,17 @@
                 Margin="0,10,0,0"
                 Command="{Binding ClearAquariumCmd}"
                 Content="Réinitialiser l'aquarium" />
+
+            <TextBlock
+                Margin="0,20,0,0"
+                FontWeight="Bold"
+                Text="Algues" />
+
+            <utilities:NumericalTextBox
+                Margin="0,10,0,0"
+                Maximum="6"
+                Minimum="2"
+                NumValue="{Binding NbSeaweeds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <!--  Liste des poissons présents dans l'aquarium  -->
@@ -134,9 +150,10 @@
             Grid.Column="1"
             Height="300"
             Margin="10,0,0,0"
+            VerticalAlignment="Top"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="auto">
-            <ListView ItemsSource="{Binding Source={StaticResource cvs}}">
+            <ListView ItemsSource="{Binding Source={StaticResource cvsFishes}}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn

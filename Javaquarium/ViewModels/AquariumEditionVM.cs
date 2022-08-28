@@ -17,7 +17,17 @@ namespace Javaquarium.ViewModels
     {
         public MainWindowVM MainWindowVM { get; init; }
         public Aquarium Aquarium { get; init; }
-        public ObservableCollection<AbstractFish> Fishes => Aquarium.Fishes;
+        public ObservableCollection<AbstractFish> Fishes { get; } = new();
+        public int NbSeaweeds
+        {
+            get => _nbSeaweeds;
+            set
+            {
+                _nbSeaweeds = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _nbSeaweeds;
         public Race FishRace { get; set; }
         public Sex FishSex { get; set; }
         public string FishName
@@ -30,8 +40,10 @@ namespace Javaquarium.ViewModels
             }
         }
         private string _fishName = "test";
+
         public Command AddFishCmd { get; init; }
         public Command ClearAquariumCmd { get; init; }
+        public Command ValidateCmd { get; init; }
 
         public AquariumEditionVM(MainWindowVM mainWindowVM, Aquarium aquarium)
         {
@@ -40,9 +52,10 @@ namespace Javaquarium.ViewModels
 
             AddFishCmd = new(AddFish);
             ClearAquariumCmd = new(ClearAquarium);
+            ValidateCmd = new(Validate);
         }
 
-        public void AddFish()
+        private void AddFish()
         {
             AbstractFish newFish = FishRace switch
             {
@@ -55,13 +68,15 @@ namespace Javaquarium.ViewModels
                 _ => new Carp(Aquarium, FishSex, FishName),
             };
 
-            Aquarium.Fishes.Add(newFish);
+            Fishes.Add(newFish);
         }
 
-        public void ClearAquarium()
+        private void ClearAquarium()
         {
-            Aquarium.Clear();
+            Fishes.Clear();
             OnPropertyChanged(nameof(Fishes));
         }
+
+        private void Validate() { }
     }
 }

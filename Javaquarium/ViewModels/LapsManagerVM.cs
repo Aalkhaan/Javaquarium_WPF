@@ -15,10 +15,10 @@ namespace Javaquarium.ViewModels
         public LapsManager LapsManager { get; init; }
         public Aquarium Aquarium => LapsManager.Aquarium;
         public int Lap => LapsManager.Lap;
-        public int NbSeaweeds => Aquarium.Seaweeds.Count;
+        public int NbSeaweeds => Aquarium.SeaweedList.Count;
         public Command ResetCommand { get; init; }
         public Command NextLapCommand { get; init; }
-        
+
         public LapsManagerVM(MainWindowVM mainWindowVM, Aquarium aquarium)
         {
             MainWindowVM = mainWindowVM;
